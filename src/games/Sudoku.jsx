@@ -1,36 +1,63 @@
 import React, { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+function shuffle(arr) {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+function isValid(board, row, col, num) {
+  for (let i = 0; i < 9; i++) {
+    if (board[row][i] === num) return false
+    if (board[i][col] === num) return false
+  }
+  const br = Math.floor(row / 3) * 3
+  const bc = Math.floor(col / 3) * 3
+  for (let r = br; r < br + 3; r++)
+    for (let c = bc; c < bc + 3; c++)
+      if (board[r][c] === num) return false
+  return true
+}
+
+function solve(board) {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c] === 0) {
+        const nums = shuffle([1,2,3,4,5,6,7,8,9])
+        for (const n of nums) {
+          if (isValid(board, r, c, n)) {
+            board[r][c] = n
+            if (solve(board)) return true
+            board[r][c] = 0
+          }
+        }
+        return false
+      }
+    }
+  }
+  return true
+}
+
 function generateSudoku(difficulty) {
-  const base = [
-    [5,3,0,0,7,0,0,0,0],
-    [6,0,0,1,9,5,0,0,0],
-    [0,9,8,0,0,0,0,6,0],
-    [8,0,0,0,6,0,0,0,3],
-    [4,0,0,8,0,3,0,0,1],
-    [7,0,0,0,2,0,0,0,6],
-    [0,6,0,0,0,0,2,8,0],
-    [0,0,0,4,1,9,0,0,5],
-    [0,0,0,0,8,0,0,7,9]
-  ]
-  const solution = [
-    [5,3,4,6,7,8,9,1,2],
-    [6,7,2,1,9,5,3,4,8],
-    [1,9,8,3,4,2,5,6,7],
-    [8,5,9,7,6,1,4,2,3],
-    [4,2,6,8,5,3,7,9,1],
-    [7,1,3,9,2,4,8,5,6],
-    [9,6,1,5,3,7,2,8,4],
-    [2,8,7,4,1,9,6,3,5],
-    [3,4,5,2,8,6,1,7,9]
-  ]
-  const removes = difficulty === 'Facile' ? 30 : difficulty === 'Medio' ? 45 : 55
-  const puzzle = base.map(r => [...r])
+  const board = Array.from({ length: 9 }, () => Array(9).fill(0))
+  solve(board)
+  const solution = board.map(r => [...r])
+  const removes = difficulty === 'Facile' ? 30 : difficulty === 'Medio' ? 40 : 50
+  const puzzle = solution.map(r => [...r])
+  const cells = shuffle([...Array(81).keys()])
   let removed = 0
-  while (removed < removes) {
-    const r = Math.floor(Math.random() * 9)
-    const c = Math.floor(Math.random() * 9)
-    if (puzzle[r][c] !== 0) { puzzle[r][c] = 0; removed++ }
+  for (const idx of cells) {
+    if (removed >= removes) break
+    const r = Math.floor(idx / 9)
+    const c = idx % 9
+    if (puzzle[r][c] !== 0) {
+      puzzle[r][c] = 0
+      removed++
+    }
   }
   return { puzzle, solution }
 }

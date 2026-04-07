@@ -10,11 +10,6 @@
       "src": "/ArcadeRoom/icons/icona.png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "/ArcadeRoom/icons/icona.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
   ]
 }

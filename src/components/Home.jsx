@@ -1,14 +1,14 @@
 import React from 'react'
 import ThemeToggle from './ThemeToggle'
 import GameCard from './GameCard'
-import { Blocks, Bomb, Grid3x3, Dices, Brain, Snake, Calculator } from 'lucide-react'
+import { Blocks, Bomb, Grid3x3, Dices, Brain, Zap, Hash, CircleDot } from 'lucide-react'
 
 const singleGames = [
   { title: 'Tetris', icon: Blocks, path: '/tetris', tag: 'Single' },
   { title: 'Campo Minato', icon: Bomb, path: '/campominato', tag: 'Single' },
   { title: 'Sudoku', icon: Grid3x3, path: '/sudoku', tag: 'Single' },
-  { title: 'Snake', icon: Snake, path: '/snake', tag: 'Single' },
-  { title: '2048', icon: Calculator, path: '/2048', tag: 'Single' },
+  { title: 'Snake', icon: Zap, path: '/snake', tag: 'Single' },
+  { title: '2048', icon: Hash, path: '/2048', tag: 'Single' },
 ]
 
 const multiGames = [

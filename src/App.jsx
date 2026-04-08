@@ -6,6 +6,9 @@ import CampoMinato from './games/CampoMinato'
 import Sudoku from './games/Sudoku'
 import Tris from './games/Tris'
 import Supertris from './games/Supertris'
+import Snake from './games/Snake'
+import Duemilaquarantotto from './games/Duemilaquarantotto'
+
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
@@ -28,6 +31,9 @@ export default function App() {
         <Route path="/sudoku" element={<Sudoku />} />
         <Route path="/tris" element={<Tris />} />
         <Route path="/supertris" element={<Supertris />} />
+        <Route path="/snake" element={<Snake />} />
+<Route path="/2048" element={<Duemilaquarantotto />} />
+
       </Routes>
     </BrowserRouter>
   )

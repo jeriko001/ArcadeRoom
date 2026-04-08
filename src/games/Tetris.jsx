@@ -98,6 +98,7 @@ export default function Tetris() {
   useEffect(() => {
     const onKey = (e) => {
       if (!stateRef.current.running) return
+      if (['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault()
       const { board, current, pos } = stateRef.current
       if (e.key === 'ArrowLeft') {
         const n = { r: pos.r, c: pos.c - 1 }

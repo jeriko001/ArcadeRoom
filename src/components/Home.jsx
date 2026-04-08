@@ -14,6 +14,7 @@ const singleGames = [
 const multiGames = [
   { title: 'Tris', icon: Dices, path: '/tris', tag: '1vs1' },
   { title: 'Supertris', icon: Brain, path: '/supertris', tag: '1vs1' },
+  { title: 'Forza 4', icon: CircleDot, path: '/forza4', tag: '1vs1' },
 ]
 
 export default function Home({ theme, toggleTheme }) {

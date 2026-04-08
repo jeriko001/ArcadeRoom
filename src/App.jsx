@@ -9,6 +9,7 @@ import Supertris from './games/Supertris'
 import Snake from './games/Snake'
 import Duemilaquarantotto from './games/Duemilaquarantotto'
 import Forza4 from './games/Forza4'
+import BattagliaNavale from './games/BattagliaNavale'
 
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/snake" element={<Snake />} />
 <Route path="/2048" element={<Duemilaquarantotto />} />
         <Route path="/forza4" element={<Forza4 />} />
+        <Route path="/battaglia" element={<BattagliaNavale />} />
 
 
       </Routes>

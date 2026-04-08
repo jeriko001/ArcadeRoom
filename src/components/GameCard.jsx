@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function GameCard({ title, emoji, path, tag }) {
+export default function GameCard({ title, icon: Icon, path, tag }) {
   const nav = useNavigate()
   return (
     <div onClick={() => nav(path)} style={{
@@ -20,12 +20,12 @@ export default function GameCard({ title, emoji, path, tag }) {
     onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 6px 16px var(--shadow)' }}
     onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 8px var(--shadow)' }}
     >
-      <span style={{ fontSize: '2.2rem' }}>{emoji}</span>
+      <Icon size={32} color="var(--accent)" />
       <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text)' }}>{title}</span>
       <span style={{
         fontSize: '0.72rem',
         background: tag === '1vs1' ? 'var(--accent)' : 'var(--accent2)',
-        color: tag === '1vs1' ? (document.documentElement.getAttribute('data-theme') === 'dark' ? '#0f0f0f' : '#fff') : '#fff',
+        color: '#fff',
         borderRadius: '999px',
         padding: '2px 10px',
         fontWeight: 600,

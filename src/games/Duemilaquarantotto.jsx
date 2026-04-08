@@ -148,7 +148,7 @@ export default function Duemilaquarantotto() {
     touchStart.current = null
   }
 
-  const cellSize = Math.min(Math.floor((window.innerWidth - 48) / SIZE), 90)
+  const cellSize = Math.floor((window.innerWidth - 48) / SIZE)
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '16px', userSelect: 'none' }}>

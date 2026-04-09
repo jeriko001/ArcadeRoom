@@ -1,16 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function useWindowWidth() {
-  const [width, setWidth] = React.useState(window.innerWidth)
-  React.useEffect(() => {
-    const handler = () => setWidth(window.innerWidth)
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
-  }, [])
-  return width
-}
-
 const SIZE = 4
 
 function emptyBoard() {
@@ -50,10 +40,8 @@ function slideRow(row) {
 function move(board, dir) {
   let totalScore = 0
   let next = board.map(r => [...r])
-
   const transpose = b => b[0].map((_, c) => b.map(r => r[c]))
   const reverseRows = b => b.map(r => [...r].reverse())
-
   if (dir === 'left') {
     next = next.map(row => { const { row: r, score } = slideRow(row); totalScore += score; return r })
   } else if (dir === 'right') {
@@ -69,7 +57,6 @@ function move(board, dir) {
     next = reverseRows(next)
     next = transpose(next)
   }
-
   const changed = JSON.stringify(next) !== JSON.stringify(board)
   return { board: next, score: totalScore, changed }
 }
@@ -100,7 +87,6 @@ const COLORS = {
 }
 
 export default function Duemilaquarantotto() {
-  const windowWidth = useWindowWidth()
   const nav = useNavigate()
   const [board, setBoard] = useState(null)
   const [score, setScore] = useState(0)
@@ -134,7 +120,6 @@ export default function Duemilaquarantotto() {
     if (isGameOver(final)) setGameOver(true)
   }, [])
 
-  // Keyboard
   React.useEffect(() => {
     const onKey = (e) => {
       if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault()
@@ -147,7 +132,6 @@ export default function Duemilaquarantotto() {
     return () => window.removeEventListener('keydown', onKey)
   }, [doMove])
 
-  // Touch
   const touchStart = useRef(null)
   const onTouchStart = (e) => { touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY } }
   const onTouchEnd = (e) => {
@@ -159,7 +143,6 @@ export default function Duemilaquarantotto() {
     touchStart.current = null
   }
 
-  const cellSize = Math.floor((Math.min(windowWidth * 0.9, 480) - 32) / SIZE)
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '16px', userSelect: 'none' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
@@ -197,13 +180,15 @@ export default function Duemilaquarantotto() {
             onTouchEnd={onTouchEnd}
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(${SIZE}, ${cellSize}px)`,
+              gridTemplateColumns: 'repeat(4, 1fr)',
               gap: 8,
               background: 'var(--border)',
               padding: 8,
               borderRadius: 12,
               margin: '0 auto',
-              width: 'fit-content'
+              width: '100%',
+              maxWidth: 400,
+              boxSizing: 'border-box'
             }}
           >
             {board.map((row, r) =>
@@ -211,12 +196,12 @@ export default function Duemilaquarantotto() {
                 const [bg, color] = COLORS[val] || ['#3c3a32', '#f9f6f2']
                 return (
                   <div key={`${r}-${c}`} style={{
-                    width: cellSize, height: cellSize,
+                    aspectRatio: '1',
                     background: bg,
                     borderRadius: 8,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontWeight: 800,
-                    fontSize: val >= 1024 ? cellSize * 0.28 : val >= 128 ? cellSize * 0.33 : cellSize * 0.4,
+                    fontSize: val >= 1024 ? '1rem' : val >= 128 ? '1.2rem' : '1.5rem',
                     color
                   }}>{val || ''}</div>
                 )

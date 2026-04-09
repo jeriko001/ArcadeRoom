@@ -10,6 +10,9 @@ import Snake from './games/Snake'
 import Duemilaquarantotto from './games/Duemilaquarantotto'
 import Forza4 from './games/Forza4'
 import BattagliaNavale from './games/BattagliaNavale'
+import Breakout from './games/Breakout'
+import Pong from './games/Pong'
+
 
 
 export default function App() {
@@ -37,6 +40,9 @@ export default function App() {
 <Route path="/2048" element={<Duemilaquarantotto />} />
         <Route path="/forza4" element={<Forza4 />} />
         <Route path="/battaglia" element={<BattagliaNavale />} />
+        <Route path="/breakout" element={<Breakout />} />
+<Route path="/pong" element={<Pong />} />
+
 
 
       </Routes>

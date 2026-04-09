@@ -1,7 +1,7 @@
 import React from 'react'
 import ThemeToggle from './ThemeToggle'
 import GameCard from './GameCard'
-import { Blocks, Bomb, Grid3x3, Dices, Brain, Zap, Hash, CircleDot, Anchor } from 'lucide-react'
+import { Blocks, Bomb, Grid3x3, Dices, Brain, Zap, Hash, CircleDot, Anchor, RectangleHorizontal, Circle } from 'lucide-react'
 
 const singleGames = [
   { title: 'Tetris', icon: Blocks, path: '/tetris', tag: 'Single' },
@@ -9,6 +9,7 @@ const singleGames = [
   { title: 'Sudoku', icon: Grid3x3, path: '/sudoku', tag: 'Single' },
   { title: 'Snake', icon: Zap, path: '/snake', tag: 'Single' },
   { title: '2048', icon: Hash, path: '/2048', tag: 'Single' },
+  { title: 'Breakout', icon: RectangleHorizontal, path: '/breakout', tag: 'Single' },
 ]
 
 const multiGames = [
@@ -16,6 +17,8 @@ const multiGames = [
   { title: 'Supertris', icon: Brain, path: '/supertris', tag: '1vs1' },
   { title: 'Forza 4', icon: CircleDot, path: '/forza4', tag: '1vs1' },
   { title: 'Battaglia Navale', icon: Anchor, path: '/battaglia', tag: '1vs1' },
+  { title: 'Pong', icon: Circle, path: '/pong', tag: '1vs1' },
+
 ]
 
 export default function Home({ theme, toggleTheme }) {

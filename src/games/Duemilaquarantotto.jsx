@@ -1,6 +1,16 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+function useWindowWidth() {
+  const [width, setWidth] = React.useState(window.innerWidth)
+  React.useEffect(() => {
+    const handler = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+  return width
+}
+
 const SIZE = 4
 
 function emptyBoard() {
@@ -90,6 +100,7 @@ const COLORS = {
 }
 
 export default function Duemilaquarantotto() {
+  const windowWidth = useWindowWidth()
   const nav = useNavigate()
   const [board, setBoard] = useState(null)
   const [score, setScore] = useState(0)
@@ -148,7 +159,7 @@ export default function Duemilaquarantotto() {
     touchStart.current = null
   }
 
-  const cellSize = Math.floor((Math.min(window.innerWidth, 480) - 48) / SIZE)
+  const cellSize = Math.floor((Math.min(windowWidth, 480) - 48) / SIZE)
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '16px', userSelect: 'none' }}>
